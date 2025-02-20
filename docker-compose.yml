@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"  # Gateway port for all services
+      - "9324:9324"  # SQS port
+    environment:
+      - SERVICES=sqs
+      - DEBUG=1
+    volumes:
+      - "./localstack:/var/lib/localstack"
