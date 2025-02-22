@@ -1,7 +1,9 @@
 package com.ishizuka.demo.application.ports.output;
 
+import reactor.core.publisher.Mono;
+
 public interface PublishMessageUseCase {
 
-    void publishMessge(String message);
+    Mono<Void> publishMessage(String message);
 
 }

@@ -10,3 +10,12 @@ services:
       - DEBUG=1
     volumes:
       - "./localstack:/var/lib/localstack"
+
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./dynamodb-data:/home/dynamodblocal/data"
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
