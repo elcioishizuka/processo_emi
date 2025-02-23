@@ -1,5 +1,7 @@
 package com.ishizuka.demo.infrastructure.adapters.configuration;
 
+import com.ishizuka.demo.infrastructure.adapters.configuration.properties.SqsProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -11,13 +13,15 @@ import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 import java.net.URI;
 
 @Configuration
+@RequiredArgsConstructor
 public class SqsConfiguration {
 
+    private final SqsProperties properties;
     @Bean
     @Profile("!local")
     public SqsAsyncClient sqsAsyncClient() {
         return SqsAsyncClient.builder()
-                .endpointOverride(URI.create("http://localhost:4566"))
+                .endpointOverride(URI.create(properties.getHost()))
                 .region(Region.US_EAST_1)
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create("demo", "demo")))
                 .build();
